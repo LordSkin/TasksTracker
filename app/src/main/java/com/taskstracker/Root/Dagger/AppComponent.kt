@@ -1,8 +1,10 @@
 package com.taskstracker.Root.Dagger
 
+import com.taskstracker.Presenter.AppPresenter
+import com.taskstracker.View.TasksListActivity
 import dagger.Component
 
-@Component
+@Component(modules = arrayOf(AppModule::class))
 interface AppComponent{
-    fun inject()
+    fun inject(tasksActivity : TasksListActivity)
 }

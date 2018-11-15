@@ -51,4 +51,11 @@ public class Task {
     public void setStatus(int status) {
         this.status = status;
     }
+
+    public int nextStatus(){
+        if(status==Task.OPEN) return Task.TRAVELING;
+        if(status==Task.TRAVELING) return Task.WORKING;
+        if(status==Task.WORKING) return Task.OPEN;
+        else return Task.OPEN;
+    }
 }
