@@ -32,7 +32,6 @@ public class DBCacheTests {
 
         when(mockedDao.getAll()).thenReturn(tasksList);
         when(mockedDao.getSize()).thenReturn(tasksList.size());
-
         testObject = new DataBaseCache(mockedDao);
     }
 
@@ -59,6 +58,23 @@ public class DBCacheTests {
     @Test(expected = InvalidParameterException.class)
     public void testUpdateWrongIdTask(){
         testObject.updateStatus(-52, 1);
+    }
+
+    @Test
+    public void correctAddtest(){
+        int newId = 34;
+        Task t = new Task(newId, "asdasd", Task.OPEN);
+        testObject.addTask(t);
+
+        assertEquals(testObject.getAll().stream().filter(task -> task.getId()==newId).findFirst().get(), t);
+    }
+
+    @Test
+    public void wrongAddTest(){
+        Task t = tasksList.get(0);
+        testObject.addTask(t);
+
+        assertEquals(testObject.getAll().stream().filter(task -> t.getId()==task.getId()).count(), 1);
     }
 
 }
