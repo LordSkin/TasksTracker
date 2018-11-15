@@ -1,7 +1,8 @@
-package com.taskstracker
+package com.taskstracker.View
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.taskstracker.R
 
 class TasksListActivity : AppCompatActivity() {
 
