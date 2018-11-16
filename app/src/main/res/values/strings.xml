@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">TasksTracker</string>
+    <string name="unknown_error">Coś poszło nie tak. Nieznany błąd</string>
 </resources>

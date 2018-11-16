@@ -2,6 +2,7 @@ package com.taskstracker.Presenter
 
 import com.taskstracker.Model.DataBase.DataBaseCache
 import com.taskstracker.Model.DataModels.Task
+import com.taskstracker.R
 import com.taskstracker.View.TasksListView
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
@@ -18,6 +19,9 @@ class AppPresenter : TasksListPresenter {
     private var tasksListView: TasksListView? = null
 
     private val updateTaskObservable = PublishSubject.create<Int>()
+
+    private var presenterLoaded = false
+    private var viewLoaded = false
 
     init {
         updateTaskObservable.observeOn(Schedulers.newThread())
@@ -39,15 +43,15 @@ class AppPresenter : TasksListPresenter {
                 }
 
                 override fun onError(e: Throwable) {
-
+                    tasksListView!!.showError(R.string.unknown_error)
                 }
             })
     }
 
     fun loadingComplete() {
-        if (tasksListView != null) {
-            tasksListView!!.updateView()
-            tasksListView!!.hideLoading()
+        presenterLoaded = true
+        if (viewLoaded){
+            tasksListView!!.loadListView()
         }
     }
 
@@ -63,15 +67,17 @@ class AppPresenter : TasksListPresenter {
         return dBConnector.getAll()
     }
 
-    override fun updateTask(id: Int) {
-        updateTaskObservable.onNext(id)
+    override fun updateTask(position: Int) {
+        updateTaskObservable.onNext(position)
     }
 
     override fun setTasksListView(view: TasksListView) {
+        viewLoaded = true
         this.tasksListView = view
-        if (dBConnector != null) {
-            tasksListView!!.updateView()
-            tasksListView!!.hideLoading()
+        if (presenterLoaded){
+            tasksListView!!.loadListView()
         }
+
+
     }
 }

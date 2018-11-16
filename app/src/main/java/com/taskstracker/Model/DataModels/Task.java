@@ -10,6 +10,9 @@ public class Task {
     public static int TRAVELING = 1;
     public static int WORKING = 2;
 
+    public static int LOCKED_CHANGES = -1;
+    public static int UNLOCKED_CHANGES = -2;
+
     public Task() {
     }
 
@@ -27,6 +30,17 @@ public class Task {
 
     @ColumnInfo(name = "status")
     private int status;
+
+    @Ignore
+    private int isLocked;
+
+    public int getIsLocked() {
+        return isLocked;
+    }
+
+    public void setIsLocked(int isLocked) {
+        this.isLocked = isLocked;
+    }
 
     public int getId() {
         return id;

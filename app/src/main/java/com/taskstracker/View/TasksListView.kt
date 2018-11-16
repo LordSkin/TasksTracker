@@ -5,5 +5,6 @@ interface TasksListView {
     fun hideLoading()
     fun showError(resId : Int)
     fun updateView()
+    fun loadListView()
 
 }

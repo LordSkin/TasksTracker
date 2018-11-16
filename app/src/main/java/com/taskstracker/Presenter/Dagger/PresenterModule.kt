@@ -12,7 +12,7 @@ import dagger.Provides
 class PresenterModule(private val context : Context, private val dbName : String, private val tasksCount : Int) {
 
     private var tasksDB : DataBaseCache = DataBaseCache(
-        Room.databaseBuilder(context, TasksDataBase::class.java, dbName)
+        Room.databaseBuilder(context, TasksDataBase::class.java, dbName+1)
             .build()
             .TasksDBDao()
     )
