@@ -31,16 +31,23 @@ class TasksListAdapter : BaseAdapter() {
         resultView.findViewById<TextView>(R.id.nameTextView).text = task.name
 
         val button = resultView.findViewById<Button>(R.id.statusChangeButton)
+        if(task.isLocked){
+            button.visibility = View.GONE
+        }
+        else{
+            button.visibility = View.VISIBLE
+            when(task.status){
+                Task.OPEN -> button.text = "OPEN"
+                Task.TRAVELING -> button.text = "TRAVELING"
+                Task.WORKING -> button.text = "WORKING"
+            }
 
-        when(task.status){
-            Task.OPEN -> button.text = "OPEN"
-            Task.TRAVELING -> button.text = "TRAVELING"
-            Task.WORKING -> button.text = "WORKING"
+            button.setOnClickListener {
+                presenter.updateTask(position)
+            }
         }
 
-        button.setOnClickListener {
-            presenter.updateTask(position)
-        }
+
 
         return resultView
     }

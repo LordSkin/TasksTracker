@@ -10,9 +10,6 @@ public class Task {
     public static int TRAVELING = 1;
     public static int WORKING = 2;
 
-    public static int LOCKED_CHANGES = -1;
-    public static int UNLOCKED_CHANGES = -2;
-
     public Task() {
     }
 
@@ -32,13 +29,13 @@ public class Task {
     private int status;
 
     @Ignore
-    private int isLocked;
+    private boolean isLocked;
 
-    public int getIsLocked() {
+    public boolean isLocked() {
         return isLocked;
     }
 
-    public void setIsLocked(int isLocked) {
+    public void setIsLocked(boolean isLocked) {
         this.isLocked = isLocked;
     }
 

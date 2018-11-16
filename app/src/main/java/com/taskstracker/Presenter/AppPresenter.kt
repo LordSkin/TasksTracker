@@ -1,6 +1,7 @@
 package com.taskstracker.Presenter
 
 import com.taskstracker.Model.DataBase.DataBaseCache
+import com.taskstracker.Model.DataBase.TasksLockingManager
 import com.taskstracker.Model.DataModels.Task
 import com.taskstracker.R
 import com.taskstracker.View.TasksListView
@@ -15,6 +16,9 @@ class AppPresenter : TasksListPresenter {
 
     @Inject
     lateinit var dBConnector: DataBaseCache
+
+    @Inject
+    lateinit var tasksLockingManager: TasksLockingManager
 
     private var tasksListView: TasksListView? = null
 
@@ -37,6 +41,7 @@ class AppPresenter : TasksListPresenter {
                 override fun onNext(t: Int) {
                     tasksListView!!.showLoading()
                     val task = dBConnector.getAll()[t]
+                    tasksLockingManager.lockTasks(dBConnector.getAll(), t, task.nextStatus())
                     dBConnector.updateStatus(task.id, task.nextStatus())
                     tasksListView!!.updateView()
                     tasksListView!!.hideLoading()
