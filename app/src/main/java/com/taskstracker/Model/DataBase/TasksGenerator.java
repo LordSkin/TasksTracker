@@ -7,10 +7,10 @@ import java.util.List;
 
 public class TasksGenerator {
 
-    public static List<Task> generateTasks(int count){
+    public static List<Task> generateTasks(int count) {
         List<Task> result = new ArrayList<>();
         for (int i = 0; i < count; i++) {
-            result.add(new Task(i, "Task "+i,Task.OPEN));
+            result.add(new Task(i, "Task " + i, Task.OPEN));
         }
         return result;
     }

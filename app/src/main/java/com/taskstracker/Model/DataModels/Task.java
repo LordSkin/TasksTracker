@@ -1,7 +1,10 @@
 package com.taskstracker.Model.DataModels;
 
 
-import android.arch.persistence.room.*;
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
 
 @Entity
 public class Task {
@@ -63,10 +66,10 @@ public class Task {
         this.status = status;
     }
 
-    public int nextStatus(){
-        if(status==Task.OPEN) return Task.TRAVELING;
-        if(status==Task.TRAVELING) return Task.WORKING;
-        if(status==Task.WORKING) return Task.OPEN;
+    public int nextStatus() {
+        if (status == Task.OPEN) return Task.TRAVELING;
+        if (status == Task.TRAVELING) return Task.WORKING;
+        if (status == Task.WORKING) return Task.OPEN;
         else return Task.OPEN;
     }
 }

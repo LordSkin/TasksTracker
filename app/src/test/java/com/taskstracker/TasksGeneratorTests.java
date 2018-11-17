@@ -12,39 +12,39 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TasksGeneratorTests {
 
     @Before
-    public void init(){
+    public void init() {
 
     }
 
     @Test
-    public void testGeneratingCorrect(){
+    public void testGeneratingCorrect() {
         int count = 20;
 
-        List<Task> tasks =  TasksGenerator.generateTasks(count);
+        List<Task> tasks = TasksGenerator.generateTasks(count);
 
         assertEquals(tasks.size(), count);
-        assertEquals(tasks.stream().filter(t -> t.getId()>=0 && t.getId()<20 && t.getName().startsWith("Task") && t.getStatus()==Task.OPEN).count(), count);
+        assertEquals(tasks.stream().filter(t -> t.getId() >= 0 && t.getId() < 20 && t.getName().startsWith("Task") && t.getStatus() == Task.OPEN).count(), count);
     }
 
     @Test
-    public void testGeneratingInCorrect(){
+    public void testGeneratingInCorrect() {
         int count = -1;
 
-        List<Task> tasks =  TasksGenerator.generateTasks(count);
+        List<Task> tasks = TasksGenerator.generateTasks(count);
 
         assertEquals(tasks.size(), 0);
-        assertEquals(tasks.stream().filter(t -> t.getId()>=0 && t.getId()<20 && t.getName().startsWith("Task") && t.getStatus()==Task.OPEN).count(), 0);
+        assertEquals(tasks.stream().filter(t -> t.getId() >= 0 && t.getId() < 20 && t.getName().startsWith("Task") && t.getStatus() == Task.OPEN).count(), 0);
 
     }
 
     @Test
-    public void testGenerateZero(){
-        int count =0;
+    public void testGenerateZero() {
+        int count = 0;
 
-        List<Task> tasks =  TasksGenerator.generateTasks(count);
+        List<Task> tasks = TasksGenerator.generateTasks(count);
 
         assertEquals(tasks.size(), count);
-        assertEquals(tasks.stream().filter(t -> t.getId()>=0 && t.getId()<20 && t.getName().startsWith("Task") && t.getStatus()==Task.OPEN).count(), count);
+        assertEquals(tasks.stream().filter(t -> t.getId() >= 0 && t.getId() < 20 && t.getName().startsWith("Task") && t.getStatus() == Task.OPEN).count(), count);
     }
 
 }

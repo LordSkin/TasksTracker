@@ -1,8 +1,8 @@
 package com.taskstracker.Presenter
 
 import com.taskstracker.Model.DataBase.DataBaseCache
-import com.taskstracker.Model.DataBase.TasksLockingManager
 import com.taskstracker.Model.DataModels.Task
+import com.taskstracker.Model.TasksLockingManager
 import com.taskstracker.R
 import com.taskstracker.View.TasksListView
 import io.reactivex.Observer
@@ -56,7 +56,7 @@ class AppPresenter : TasksListPresenter {
     fun loadingComplete() {
         tasksLockingManager.initLocks(dBConnector.getAll())
         presenterLoaded = true
-        if (viewLoaded){
+        if (viewLoaded) {
             tasksListView!!.loadListView()
         }
     }
@@ -80,7 +80,7 @@ class AppPresenter : TasksListPresenter {
     override fun setTasksListView(view: TasksListView) {
         viewLoaded = true
         this.tasksListView = view
-        if (presenterLoaded){
+        if (presenterLoaded) {
             tasksListView!!.loadListView()
         }
 

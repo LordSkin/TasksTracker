@@ -15,8 +15,8 @@ import io.reactivex.schedulers.Schedulers
 
 class App : Application() {
 
-    companion object appComponent{
-        lateinit var appComponent : AppComponent
+    companion object appComponent {
+        lateinit var appComponent: AppComponent
     }
 
     private val tasksCount = 20
@@ -26,11 +26,20 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        appComponent.appComponent = DaggerAppComponent.builder().appModule(AppModule(appPresenter, applicationContext)).build()
+        appComponent.appComponent =
+                DaggerAppComponent.builder().appModule(AppModule(appPresenter, applicationContext)).build()
 
         val observable = object : Observable<PresenterComponent>() {
             override fun subscribeActual(observer: Observer<in PresenterComponent>) {
-                observer.onNext(DaggerPresenterComponent.builder().presenterModule(PresenterModule(applicationContext, DBname, tasksCount)).build())
+                observer.onNext(
+                    DaggerPresenterComponent.builder().presenterModule(
+                        PresenterModule(
+                            applicationContext,
+                            DBname,
+                            tasksCount
+                        )
+                    ).build()
+                )
             }
         }
 

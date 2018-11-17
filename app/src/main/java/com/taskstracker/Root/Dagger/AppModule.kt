@@ -10,12 +10,12 @@ import dagger.Provides
 class AppModule(private val appPresenter: AppPresenter, private val context: Context) {
 
     @Provides
-    fun provideContext() : Context{
+    fun provideContext(): Context {
         return context
     }
 
     @Provides
-    fun provideTasksPresenter() : TasksListPresenter{
+    fun provideTasksPresenter(): TasksListPresenter {
         return appPresenter
     }
 

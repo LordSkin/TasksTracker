@@ -1,8 +1,8 @@
-package com.taskstracker.Model.DataBase
+package com.taskstracker.Model
 
 import com.taskstracker.Model.DataModels.Task
 
-class TasksLockingManager {
+open class TasksLockingManager {
 
     fun lockTasks(tasks: List<Task>, updatedPos: Int, newStatus: Int) {
         if (newStatus == Task.OPEN) {

@@ -1,6 +1,7 @@
 package com.taskstracker.Presenter;
 
 import com.taskstracker.Model.DataBase.DataBaseCache;
+import com.taskstracker.Model.TasksLockingManager;
 import com.taskstracker.Model.DataModels.Task;
 import com.taskstracker.View.TasksListView;
 import org.junit.Before;
@@ -19,11 +20,13 @@ public class PresenterTests {
     private AppPresenter testObject;
     private List<Task> tasksList;
     private DataBaseCache mockedDbConnector;
+    private TasksLockingManager mockedTasksLockingManager;
 
     @Before
     public void init(){
         testObject = new AppPresenter();
         mockedDbConnector = mock(DataBaseCache.class);
+        mockedTasksLockingManager = mock(TasksLockingManager.class);
 
         tasksList = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
@@ -34,6 +37,7 @@ public class PresenterTests {
         when(mockedDbConnector.countTasks()).thenReturn(tasksList.size());
 
         testObject.dBConnector = mockedDbConnector;
+        testObject.tasksLockingManager = mockedTasksLockingManager;
         testObject.setTasksListView(mock(TasksListView.class));
     }
 
@@ -50,12 +54,12 @@ public class PresenterTests {
 
     @Test
     public void testUpdatingTasks(){
-        doAnswer((Answer) invocation -> {
+        doAnswer(invocation -> {
             Object arg0 = invocation.getArguments()[0];
             Object arg1 = invocation.getArguments()[1];
 
             assertEquals(1, arg0);
-            assertEquals(1, arg1);
+            assertEquals(2, arg1);
             return null;
         }).when(mockedDbConnector).updateStatus(anyInt(),anyInt());
 

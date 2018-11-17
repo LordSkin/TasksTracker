@@ -7,7 +7,7 @@ interface TasksListPresenter {
     fun getTasksCount(): Int
     fun getTask(id: Int): Task
     fun getTasks(): List<Task>
-    fun updateTask(position : Int)
+    fun updateTask(position: Int)
     fun setTasksListView(view: TasksListView)
 
 }

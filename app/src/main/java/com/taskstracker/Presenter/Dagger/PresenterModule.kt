@@ -5,15 +5,15 @@ import android.content.Context
 import com.taskstracker.Model.DataBase.DataBaseCache
 import com.taskstracker.Model.DataBase.TasksDataBase
 import com.taskstracker.Model.DataBase.TasksGenerator
-import com.taskstracker.Model.DataBase.TasksLockingManager
+import com.taskstracker.Model.TasksLockingManager
 import dagger.Module
 import dagger.Provides
 
 @Module
-class PresenterModule(context : Context, dbName : String, private val tasksCount : Int) {
+class PresenterModule(context: Context, dbName: String, private val tasksCount: Int) {
 
-    private var tasksDB : DataBaseCache = DataBaseCache(
-        Room.databaseBuilder(context, TasksDataBase::class.java, dbName+1)
+    private var tasksDB: DataBaseCache = DataBaseCache(
+        Room.databaseBuilder(context, TasksDataBase::class.java, dbName + 1)
             .build()
             .TasksDBDao()
     )
@@ -23,7 +23,7 @@ class PresenterModule(context : Context, dbName : String, private val tasksCount
     }
 
     @Provides
-    fun providesTasksDB() : DataBaseCache{
+    fun providesTasksDB(): DataBaseCache {
         return tasksDB
     }
 
@@ -37,7 +37,7 @@ class PresenterModule(context : Context, dbName : String, private val tasksCount
     }
 
     @Provides
-    fun provideTasksLockingManager() : TasksLockingManager{
+    fun provideTasksLockingManager(): TasksLockingManager {
         return TasksLockingManager()
     }
 

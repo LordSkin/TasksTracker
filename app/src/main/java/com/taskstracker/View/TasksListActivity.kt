@@ -3,7 +3,6 @@ package com.taskstracker.View
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
-import android.widget.ListAdapter
 import android.widget.ListView
 import android.widget.ProgressBar
 import android.widget.Toast
@@ -19,7 +18,7 @@ class TasksListActivity : AppCompatActivity(), TasksListView {
 
     private lateinit var loadingIndicator: ProgressBar
     private lateinit var listView: ListView
-    private lateinit var listAdapter : TasksListAdapter
+    private lateinit var listAdapter: TasksListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +35,8 @@ class TasksListActivity : AppCompatActivity(), TasksListView {
     }
 
     override fun loadListView() {
-        runOnUiThread { listView.adapter = listAdapter
+        runOnUiThread {
+            listView.adapter = listAdapter
             listAdapter.notifyDataSetChanged()
             loadingIndicator.visibility = View.GONE
             listView.visibility = View.VISIBLE
@@ -60,7 +60,7 @@ class TasksListActivity : AppCompatActivity(), TasksListView {
 
     override fun showError(resId: Int) {
         runOnUiThread {
-            Toast.makeText(this, getResources().getString(resId), Toast.LENGTH_SHORT)
+            Toast.makeText(this, resources.getString(resId), Toast.LENGTH_SHORT).show()
         }
     }
 

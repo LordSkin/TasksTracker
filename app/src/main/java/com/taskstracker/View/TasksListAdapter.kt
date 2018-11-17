@@ -16,15 +16,15 @@ import javax.inject.Inject
 class TasksListAdapter : BaseAdapter() {
 
     @Inject
-    lateinit var presenter : TasksListPresenter
+    lateinit var presenter: TasksListPresenter
 
     @Inject
-    lateinit var context : Context
+    lateinit var context: Context
 
-    private var layoutInflater : LayoutInflater? = null
+    private var layoutInflater: LayoutInflater? = null
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        if(layoutInflater==null) layoutInflater = LayoutInflater.from(context)
+        if (layoutInflater == null) layoutInflater = LayoutInflater.from(context)
 
         val task = presenter.getTask(position)
         val resultView = layoutInflater!!.inflate(R.layout.tasks_list_row, null)
@@ -32,10 +32,9 @@ class TasksListAdapter : BaseAdapter() {
         resultView.findViewById<TextView>(R.id.nameTextView).text = task.name
 
         val button = resultView.findViewById<Button>(R.id.statusChangeButton)
-        if(task.isLocked){
+        if (task.isLocked) {
             button.visibility = View.GONE
-        }
-        else{
+        } else {
             button.visibility = View.VISIBLE
             button.setOnClickListener {
                 presenter.updateTask(position)
@@ -43,18 +42,21 @@ class TasksListAdapter : BaseAdapter() {
         }
 
         val statusTextView = resultView.findViewById<TextView>(R.id.statusTextView)
-        when(task.status){
-            Task.OPEN ->{
+        when (task.status) {
+            Task.OPEN -> {
                 resultView.setBackgroundColor(ContextCompat.getColor(context, R.color.light_blue))
-                statusTextView.text = context.resources.getText(R.string.status).toString() + ":" + context.resources.getText(R.string.status_open).toString()
+                statusTextView.text = context.resources.getText(R.string.status).toString() + ":" +
+                        context.resources.getText(R.string.status_open).toString()
             }
             Task.TRAVELING -> {
                 resultView.setBackgroundColor(ContextCompat.getColor(context, R.color.light_green))
-                statusTextView.text = context.resources.getText(R.string.status).toString() + ": " + context.resources.getText(R.string.status_traveling).toString()
+                statusTextView.text = context.resources.getText(R.string.status).toString() + ": " +
+                        context.resources.getText(R.string.status_traveling).toString()
             }
             Task.WORKING -> {
                 resultView.setBackgroundColor(ContextCompat.getColor(context, R.color.light_pink))
-                statusTextView.text = context.resources.getText(R.string.status).toString() + ":" + context.resources.getText(R.string.status_working).toString()
+                statusTextView.text = context.resources.getText(R.string.status).toString() + ":" +
+                        context.resources.getText(R.string.status_working).toString()
             }
         }
 

@@ -22,12 +22,12 @@ public class DBCacheTests {
     private List<Task> tasksList;
 
     @Before
-    public void init(){
+    public void init() {
         TasksDBDao mockedDao = mock(TasksDBDao.class);
 
         tasksList = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
-            tasksList.add(new Task(i, "name"+i, i%3));
+            tasksList.add(new Task(i, "name" + i, i % 3));
         }
 
         when(mockedDao.getAll()).thenReturn(tasksList);
@@ -36,18 +36,18 @@ public class DBCacheTests {
     }
 
     @Test
-    public void testGetAllTasks(){
+    public void testGetAllTasks() {
         List<Task> testedList = testObject.getAll();
         assertEquals(testedList, tasksList);
     }
 
     @Test
-    public void testCount(){
+    public void testCount() {
         assertEquals(testObject.countTasks(), tasksList.size());
     }
 
     @Test
-    public void testUpdateCorrect(){
+    public void testUpdateCorrect() {
         Task t = testObject.getAll().get(0);
 
         testObject.updateStatus(t.getId(), 1);
@@ -56,25 +56,25 @@ public class DBCacheTests {
     }
 
     @Test(expected = InvalidParameterException.class)
-    public void testUpdateWrongIdTask(){
+    public void testUpdateWrongIdTask() {
         testObject.updateStatus(-52, 1);
     }
 
     @Test
-    public void correctAddtest(){
+    public void correctAddtest() {
         int newId = 34;
         Task t = new Task(newId, "asdasd", Task.OPEN);
         testObject.addTask(t);
 
-        assertEquals(testObject.getAll().stream().filter(task -> task.getId()==newId).findFirst().get(), t);
+        assertEquals(testObject.getAll().stream().filter(task -> task.getId() == newId).findFirst().get(), t);
     }
 
     @Test
-    public void wrongAddTest(){
+    public void wrongAddTest() {
         Task t = tasksList.get(0);
         testObject.addTask(t);
 
-        assertEquals(testObject.getAll().stream().filter(task -> t.getId()==task.getId()).count(), 1);
+        assertEquals(testObject.getAll().stream().filter(task -> t.getId() == task.getId()).count(), 1);
     }
 
 }
