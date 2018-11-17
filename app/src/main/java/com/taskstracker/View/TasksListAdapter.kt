@@ -48,7 +48,7 @@ class TasksListAdapter : BaseAdapter() {
         when (task.status) {
             Task.OPEN -> {
                 resultView.setBackgroundColor(ContextCompat.getColor(context, R.color.light_blue))
-                statusTextView.text = context.resources.getText(R.string.status).toString() + ":" +
+                statusTextView.text = context.resources.getText(R.string.status).toString() + ": " +
                         context.resources.getText(R.string.status_open).toString()
             }
             Task.TRAVELING -> {
@@ -58,7 +58,7 @@ class TasksListAdapter : BaseAdapter() {
             }
             Task.WORKING -> {
                 resultView.setBackgroundColor(ContextCompat.getColor(context, R.color.light_pink))
-                statusTextView.text = context.resources.getText(R.string.status).toString() + ":" +
+                statusTextView.text = context.resources.getText(R.string.status).toString() + ": " +
                         context.resources.getText(R.string.status_working).toString()
             }
         }
