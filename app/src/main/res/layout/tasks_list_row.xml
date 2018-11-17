@@ -1,20 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="horizontal"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:orientation="horizontal"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent" android:background="@color/light_blue">
 
     <TextView android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
               android:id="@+id/idTextView"
-              android:layout_height="match_parent"/>
+              android:textSize="@dimen/normal_font_size"
+              android:text="id" app:layout_constraintStart_toStartOf="parent"
+              android:layout_marginStart="@dimen/standard_margin" android:layout_marginTop="@dimen/standard_margin"
+              app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView android:layout_width="wrap_content"
-              android:layout_height="match_parent"
-              android:id="@+id/nameTextView"/>
+              android:layout_height="wrap_content"
+              android:text="Task name"
+              android:textSize="@dimen/normal_font_size"
+              android:id="@+id/nameTextView"
+              android:layout_marginTop="@dimen/standard_margin"
+              app:layout_constraintTop_toTopOf="parent"
+              app:layout_constraintEnd_toEndOf="parent"
+              android:layout_marginEnd="@dimen/standard_margin" android:layout_marginStart="8dp"
+              app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:id="@+id/statusTextView"
+              android:textSize="@dimen/normal_font_size"
+              android:textStyle="bold"
+              android:text="status" app:layout_constraintEnd_toEndOf="parent"
+              android:layout_marginEnd="@dimen/standard_margin" app:layout_constraintStart_toStartOf="parent"
+              android:layout_marginStart="@dimen/standard_margin" android:layout_marginTop="@dimen/standard_margin"
+              app:layout_constraintTop_toBottomOf="@+id/nameTextView"
+    />
 
     <Button android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="OPEN"
-            android:id="@+id/statusChangeButton"/>
+            android:layout_height="wrap_content"
+            android:text="@string/changeStatus"
+            android:id="@+id/statusChangeButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="@dimen/standard_margin" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="@dimen/standard_margin" android:layout_marginTop="@dimen/standard_margin"
+            app:layout_constraintTop_toBottomOf="@+id/statusTextView"/>
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

@@ -1,6 +1,7 @@
 package com.taskstracker.View
 
 import android.content.Context
+import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,16 +37,27 @@ class TasksListAdapter : BaseAdapter() {
         }
         else{
             button.visibility = View.VISIBLE
-            when(task.status){
-                Task.OPEN -> button.text = "OPEN"
-                Task.TRAVELING -> button.text = "TRAVELING"
-                Task.WORKING -> button.text = "WORKING"
-            }
-
             button.setOnClickListener {
                 presenter.updateTask(position)
             }
         }
+
+        val statusTextView = resultView.findViewById<TextView>(R.id.statusTextView)
+        when(task.status){
+            Task.OPEN ->{
+                resultView.setBackgroundColor(ContextCompat.getColor(context, R.color.light_blue))
+                statusTextView.text = context.resources.getText(R.string.status).toString() + ":" + context.resources.getText(R.string.status_open).toString()
+            }
+            Task.TRAVELING -> {
+                resultView.setBackgroundColor(ContextCompat.getColor(context, R.color.light_green))
+                statusTextView.text = context.resources.getText(R.string.status).toString() + ": " + context.resources.getText(R.string.status_traveling).toString()
+            }
+            Task.WORKING -> {
+                resultView.setBackgroundColor(ContextCompat.getColor(context, R.color.light_pink))
+                statusTextView.text = context.resources.getText(R.string.status).toString() + ":" + context.resources.getText(R.string.status_working).toString()
+            }
+        }
+
 
 
 

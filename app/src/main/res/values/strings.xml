@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">TasksTracker</string>
     <string name="unknown_error">Coś poszło nie tak. Nieznany błąd</string>
+    <string name="changeStatus">Change status</string>
+    <string name="status">status</string>
+    <string name="status_open">OPEN</string>
+    <string name="status_traveling">TRAVELING</string>
+    <string name="status_working">WORKING</string>
 </resources>
