@@ -54,6 +54,7 @@ class AppPresenter : TasksListPresenter {
     }
 
     fun loadingComplete() {
+        tasksLockingManager.initLocks(dBConnector.getAll())
         presenterLoaded = true
         if (viewLoaded){
             tasksListView!!.loadListView()

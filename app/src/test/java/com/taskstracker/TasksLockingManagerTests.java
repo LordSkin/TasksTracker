@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TasksLockingManagerTests {
@@ -51,5 +52,26 @@ public class TasksLockingManagerTests {
     @Test(expected = IllegalArgumentException.class)
     public void testNullList() {
         testObject.lockTasks(null, 0, Task.OPEN);
+    }
+
+    @Test
+    public void testPositiveInit(){
+        tasksList.get(0).setStatus(Task.WORKING);
+
+        testObject.initLocks(tasksList);
+
+        tasksList.stream().filter(task -> task.getId()!=0).forEach(task -> assertTrue(task.isLocked()));
+        assertFalse(tasksList.get(0).isLocked());
+    }
+
+    @Test
+    public void testNegativeInit(){
+        testObject.initLocks(tasksList);
+        tasksList.stream().forEach(task -> assertFalse(task.isLocked()));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testNullInit(){
+        testObject.initLocks(null);
     }
 }
