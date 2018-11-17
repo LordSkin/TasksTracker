@@ -2,6 +2,9 @@ package com.taskstracker.Model
 
 import com.taskstracker.Model.DataModels.Task
 
+/**
+ * Locks and unlocks tasks acording to status changing
+ */
 open class TasksLockingManager {
 
     fun lockTasks(tasks: List<Task>, updatedPos: Int, newStatus: Int) {

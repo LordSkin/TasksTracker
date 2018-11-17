@@ -13,6 +13,9 @@ import com.taskstracker.Presenter.TasksListPresenter
 import com.taskstracker.R
 import javax.inject.Inject
 
+/**
+ * ListAdapter for tasks list
+ */
 class TasksListAdapter : BaseAdapter() {
 
     @Inject

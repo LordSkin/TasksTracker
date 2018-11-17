@@ -11,6 +11,9 @@ import com.taskstracker.R
 import com.taskstracker.Root.App
 import javax.inject.Inject
 
+/**
+ * Activity for tasksViewList, also view object
+ */
 class TasksListActivity : AppCompatActivity(), TasksListView {
 
     @Inject

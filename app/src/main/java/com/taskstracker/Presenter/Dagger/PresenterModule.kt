@@ -9,6 +9,9 @@ import com.taskstracker.Model.TasksLockingManager
 import dagger.Module
 import dagger.Provides
 
+/**
+ * Dagger module, preparing dependencies for presenter
+ */
 @Module
 class PresenterModule(context: Context, dbName: String, private val tasksCount: Int) {
 

@@ -13,6 +13,9 @@ import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
+/**
+ * Application startup class, managing dagger injections
+ */
 class App : Application() {
 
     companion object appComponent {

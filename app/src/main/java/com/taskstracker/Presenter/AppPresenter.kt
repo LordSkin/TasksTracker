@@ -11,6 +11,9 @@ import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 
+/**
+ * App presenter implementation
+ */
 class AppPresenter : TasksListPresenter {
 
 
