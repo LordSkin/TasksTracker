@@ -18,54 +18,73 @@ import javax.inject.Inject
  */
 class TasksListAdapter : BaseAdapter() {
 
+    private data class ViewHolderItem constructor(
+        val id: TextView,
+        val name: TextView,
+        val status: TextView,
+        val changeStatusButton: Button
+    )
+
     @Inject
     lateinit var presenter: TasksListPresenter
 
     @Inject
     lateinit var context: Context
 
+    private lateinit var statusOpen: String
+    private lateinit var statusTraveling: String
+    private lateinit var statusWorking: String
+
+    private var colorOpen = 0
+    private var colorTraveling = 0
+    private var colorWorking = 0
+
     private var layoutInflater: LayoutInflater? = null
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        if (layoutInflater == null) layoutInflater = LayoutInflater.from(context)
+        initResorurces()
+        var viewHolder: ViewHolderItem
+        var resultView: View
+        if (convertView == null) {
+            if (layoutInflater == null) layoutInflater = LayoutInflater.from(context)
+            resultView = layoutInflater!!.inflate(R.layout.tasks_list_row, parent, false)
+            viewHolder = ViewHolderItem(
+                resultView.findViewById(R.id.idTextView),
+                resultView.findViewById(R.id.nameTextView),
+                resultView.findViewById(R.id.statusTextView),
+                resultView.findViewById(R.id.statusChangeButton)
+            )
+            resultView.tag = viewHolder
+        } else {
+            resultView = convertView
+            viewHolder = convertView.tag as ViewHolderItem
+        }
 
         val task = presenter.getTask(position)
-        val resultView = layoutInflater!!.inflate(R.layout.tasks_list_row, null)
-        resultView.findViewById<TextView>(R.id.idTextView).text = task.id.toString()
-        resultView.findViewById<TextView>(R.id.nameTextView).text = task.name
+        viewHolder.id.text = task.id.toString()
+        viewHolder.name.text = task.name
 
-        val button = resultView.findViewById<Button>(R.id.statusChangeButton)
         if (task.isLocked) {
-            button.visibility = View.GONE
+            viewHolder.changeStatusButton.visibility = View.GONE
         } else {
-            button.visibility = View.VISIBLE
-            button.setOnClickListener {
-                presenter.updateTask(position)
-            }
+            viewHolder.changeStatusButton.visibility = View.VISIBLE
+            viewHolder.changeStatusButton.setOnClickListener { presenter.updateTask(position) }
         }
 
-        val statusTextView = resultView.findViewById<TextView>(R.id.statusTextView)
         when (task.status) {
             Task.OPEN -> {
-                resultView.setBackgroundColor(ContextCompat.getColor(context, R.color.light_blue))
-                statusTextView.text = context.resources.getText(R.string.status).toString() + ": " +
-                        context.resources.getText(R.string.status_open).toString()
+                resultView.setBackgroundColor(colorOpen)
+                viewHolder.status.text = statusOpen
             }
             Task.TRAVELING -> {
-                resultView.setBackgroundColor(ContextCompat.getColor(context, R.color.light_green))
-                statusTextView.text = context.resources.getText(R.string.status).toString() + ": " +
-                        context.resources.getText(R.string.status_traveling).toString()
+                resultView.setBackgroundColor(colorTraveling)
+                viewHolder.status.text = statusTraveling
             }
             Task.WORKING -> {
-                resultView.setBackgroundColor(ContextCompat.getColor(context, R.color.light_pink))
-                statusTextView.text = context.resources.getText(R.string.status).toString() + ": " +
-                        context.resources.getText(R.string.status_working).toString()
+                resultView.setBackgroundColor(colorWorking)
+                viewHolder.status.text = statusWorking
             }
         }
-
-
-
-
         return resultView
     }
 
@@ -79,6 +98,21 @@ class TasksListAdapter : BaseAdapter() {
 
     override fun getCount(): Int {
         return presenter.getTasksCount()
+    }
+
+    private fun initResorurces() {
+        if (!(::statusOpen.isInitialized)) {
+            statusOpen = context.resources.getText(R.string.status).toString() + ": " +
+                    context.resources.getText(R.string.status_open).toString()
+            statusTraveling = context.resources.getText(R.string.status).toString() + ": " +
+                    context.resources.getText(R.string.status_traveling).toString()
+            statusWorking = context.resources.getText(R.string.status).toString() + ": " +
+                    context.resources.getText(R.string.status_working).toString()
+
+            colorOpen = ContextCompat.getColor(context, R.color.light_blue)
+            colorTraveling = ContextCompat.getColor(context, R.color.light_green)
+            colorWorking = ContextCompat.getColor(context, R.color.light_pink)
+        }
     }
 
 }
