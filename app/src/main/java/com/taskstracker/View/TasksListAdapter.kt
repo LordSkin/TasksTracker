@@ -35,6 +35,10 @@ class TasksListAdapter : BaseAdapter() {
     private lateinit var statusTraveling: String
     private lateinit var statusWorking: String
 
+    private lateinit var startTravelButtonDesc : String
+    private lateinit var startWorkButtonDesc : String
+    private lateinit var stopButtonDesc : String
+
     private var colorOpen = 0
     private var colorTraveling = 0
     private var colorWorking = 0
@@ -75,14 +79,17 @@ class TasksListAdapter : BaseAdapter() {
             Task.OPEN -> {
                 resultView.setBackgroundColor(colorOpen)
                 viewHolder.status.text = statusOpen
+                viewHolder.changeStatusButton.text = startTravelButtonDesc
             }
             Task.TRAVELING -> {
                 resultView.setBackgroundColor(colorTraveling)
                 viewHolder.status.text = statusTraveling
+                viewHolder.changeStatusButton.text = startWorkButtonDesc
             }
             Task.WORKING -> {
                 resultView.setBackgroundColor(colorWorking)
                 viewHolder.status.text = statusWorking
+                viewHolder.changeStatusButton.text = stopButtonDesc
             }
         }
         return resultView
@@ -112,6 +119,10 @@ class TasksListAdapter : BaseAdapter() {
             colorOpen = ContextCompat.getColor(context, R.color.light_blue)
             colorTraveling = ContextCompat.getColor(context, R.color.light_green)
             colorWorking = ContextCompat.getColor(context, R.color.light_pink)
+
+            startTravelButtonDesc = context.resources.getText(R.string.start_travel).toString()
+            startWorkButtonDesc = context.resources.getText(R.string.start_work).toString()
+            stopButtonDesc = context.resources.getText(R.string.stop).toString()
         }
     }
 
